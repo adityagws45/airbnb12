@@ -1,0 +1,51 @@
+<% layout('layouts/boilerplate') -%>
+<body>
+<div class="listing-container mt-3">
+    <div class="card" style="width: 38rem;">
+        <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
+        <div class="card-body">
+            <h5 class="card-title"><%= listing.title %></h5>
+            <p class="card-text"><%= listing.description %></p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Price: <%= listing.price.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD"
+                }) %></li>
+            <li class="list-group-item">Location: <%= listing.location %></li>
+            <li class="list-group-item">Country: <%= listing.country %></li>
+        </ul>
+        <div class="card-body row btns">
+            <div class="col-4 btn btn-dark edit-page-btn">
+                <a href="/listings/<%= listing._id %>/edit"><i class="fa-regular fa-pen-to-square"></i> Edit </a>
+            </div>
+            <div class="col-4 btn btn-dark">
+                <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
+                    <button class="list-delete-btn" type="submit"> <i class="fa-solid fa-trash"></i> Delete </button>
+                </form>
+            </div>
+        </div>
+        <div class="col-8 offset-2 ">
+            <h4>Leave a review</h4>
+            <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation">
+                <div class="form-group">
+                    <label for="rating">Rating:</label>
+                    <select class="form-control" id="rating" name="review[rating]" style="width:2.5rem;">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="content">Review:</label>
+                    <textarea class="form-control mb-3" id="comment" name="review[comment]" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-dark" >Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
